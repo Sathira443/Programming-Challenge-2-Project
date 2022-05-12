@@ -88,5 +88,6 @@ while True:
     if key == 27:
         break
 
+# release
 cap.release()
 cv2.destroyAllWindows()
