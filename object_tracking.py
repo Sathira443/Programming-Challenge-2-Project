@@ -8,6 +8,8 @@ obj_detection = ObjectDetection()
 
 cap = cv2.VideoCapture("Temp3.m4v")
 
+object_detector = cv2.createBackgroundSubtractorMOG2(history=100, varThreshold=40)
+
 # Initialize count
 count = 0
 # Store all the centre points of vehicles from the previous frame
@@ -18,6 +20,8 @@ track_id = 0
 
 # Polygon corner points coordinates
 pts = np.array([[10, 1000], [10, 800], [450, 500], [1500, 500], [1900, 800], [1900, 1000]], np.int32)
+# pts = np.array([[720, 340], [800, 500]], np.int32)
+
 
 while True:
     ret, frame = cap.read()
@@ -27,8 +31,11 @@ while True:
     if not ret:
         break
 
-    #
+    # Trapezium
     cv2.polylines(frame, [pts], True, (0, 0, 255), 2)
+
+    roi = frame[500: 800, 10: 1900]
+    mask = object_detector.apply(roi)
 
     # Store all the centre points of vehicles from the current frame
     current_frame_centre_point_list = []
