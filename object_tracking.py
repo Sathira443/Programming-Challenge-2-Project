@@ -10,7 +10,8 @@ cap = cv2.VideoCapture("Temp3.mp4")
 
 # Initialize count
 count = 0
-prev_frame_centre_points_list = []
+# Store all the centre points of vehicles from the previous frame
+previous_frame_centre_point_list = []
 
 tracking_objects = {}
 track_id = 0
@@ -18,11 +19,13 @@ track_id = 0
 while True:
     ret, frame = cap.read()
     count += 1
+
+    # If there are no more frames, break the loop
     if not ret:
         break
 
-    # Point current frame
-    cur_frame_centre_points_list = []
+    # Store all the centre points of vehicles from the current frame
+    current_frame_centre_point_list = []
 
     # Detect objects on frame
     (class_ids, scores, boxes) = obj_detection.detect(frame)
@@ -30,13 +33,14 @@ while True:
         (x, y, w, h) = box
         center_x = int((x + x + w) / 2)
         center_y = int((y + y + h) / 2)
-        cur_frame_centre_points_list.append((center_x, center_y))
+        current_frame_centre_point_list.append((center_x, center_y))
+        # Surround vehicle by a green box
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Only at the beginning we compare previous and current frame
     if count <= 2:
-        for current_point in cur_frame_centre_points_list:
-            for previous_point in prev_frame_centre_points_list:
+        for current_point in current_frame_centre_point_list:
+            for previous_point in previous_frame_centre_point_list:
                 distance = math.hypot(previous_point[0] - current_point[0], previous_point[1] - current_point[1])
 
                 if distance < 20:
@@ -45,7 +49,7 @@ while True:
     else:
 
         tracking_objects_copy = tracking_objects.copy()
-        center_points_cur_frame_copy = cur_frame_centre_points_list.copy()
+        center_points_cur_frame_copy = current_frame_centre_point_list.copy()
 
         for object_id, previous_point in tracking_objects_copy.items():
             object_exists = False
@@ -56,8 +60,8 @@ while True:
                 if distance < 20:
                     tracking_objects[object_id] = current_point
                     object_exists = True
-                    if current_point in cur_frame_centre_points_list:
-                        cur_frame_centre_points_list.remove(current_point)
+                    if current_point in current_frame_centre_point_list:
+                        current_frame_centre_point_list.remove(current_point)
                     continue
 
             # Remove IDs lost
@@ -65,7 +69,7 @@ while True:
                 tracking_objects.pop(object_id)
 
         # Add new IDs found
-        for current_point in cur_frame_centre_points_list:
+        for current_point in current_frame_centre_point_list:
             tracking_objects[track_id] = current_point
             track_id += 1
 
@@ -77,13 +81,15 @@ while True:
     print(tracking_objects)
 
     print("CUR FRAME LEFT PTS")
-    print(cur_frame_centre_points_list)
+    print(current_frame_centre_point_list)
 
+    # This will show the frame in a new window
     cv2.imshow("Frame", frame)
 
     # Make a copy of the points
-    prev_frame_centre_points_list = cur_frame_centre_points_list.copy()
+    previous_frame_centre_point_list = current_frame_centre_point_list.copy()
 
+    # Don't need to press any key to go through frame by frame
     key = cv2.waitKey(1)
     if key == 27:
         break
