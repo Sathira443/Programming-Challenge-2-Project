@@ -6,7 +6,7 @@ import math
 # Initialize Object Detection
 obj_detection = ObjectDetection()
 
-cap = cv2.VideoCapture("Temp3.mp4")
+cap = cv2.VideoCapture("Temp3.m4v")
 
 # Initialize count
 count = 0
@@ -16,6 +16,9 @@ previous_frame_centre_point_list = []
 tracking_objects = {}
 track_id = 0
 
+# Polygon corner points coordinates
+pts = np.array([[10, 1000], [10, 800], [450, 500], [1500, 500], [1900, 800], [1900, 1000]], np.int32)
+
 while True:
     ret, frame = cap.read()
     count += 1
@@ -23,6 +26,9 @@ while True:
     # If there are no more frames, break the loop
     if not ret:
         break
+
+    #
+    cv2.polylines(frame, [pts], True, (0, 0, 255), 2)
 
     # Store all the centre points of vehicles from the current frame
     current_frame_centre_point_list = []
