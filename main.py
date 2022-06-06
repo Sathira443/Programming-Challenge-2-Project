@@ -14,8 +14,8 @@ while True:
     height, width, _ = frame.shape
 
     # Extract Region of interest
-    roi = frame[340: 720,500: 800]
-
+    # roi = frame[340: 720,500: 800]
+    roi = frame[250: 720,500: 800]
     # 1. Object Detection
     mask = object_detector.apply(roi)
     _, mask = cv2.threshold(mask, 254, 255, cv2.THRESH_BINARY)
