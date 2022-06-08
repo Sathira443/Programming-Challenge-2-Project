@@ -49,8 +49,8 @@ while True:
     # Trapezium
     cv2.polylines(frame, [pts], True, (0, 0, 255), 2)
 
-    roi = frame[500: 800, 10: 1900]
-    mask = object_detector.apply(roi)
+    # roi = frame[500: 800, 10: 1900]
+    # mask = object_detector.apply(roi)
 
     # Store all the centre points of vehicles from the current frame
     current_frame_Object_list = []
