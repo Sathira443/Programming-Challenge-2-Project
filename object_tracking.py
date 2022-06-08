@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from sqlalchemy import false
 from DangerArea import DangerArea
 from collision_detection import detectCollision
 from object_detection import ObjectDetection
