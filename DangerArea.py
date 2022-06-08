@@ -1,5 +1,4 @@
 from tkinter import Y
-from sqlalchemy import null
 from sympy import *
 
 class DangerArea():
