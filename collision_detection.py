@@ -71,15 +71,20 @@ def detectCollision(dangerArea,curr_point,pre_point,fps):
         
         if T < 2:
             if collision_point[1] == 0:
-                return ("danger on your left",collision_point,current_point,previous_point,timeperiod,velocity,T)
+                return ("danger on your left")
+                #return ("danger on your left",collision_point,current_point,previous_point,timeperiod,velocity,T)
             if collision_point[1] == 1:
-                return ("danger on your left",collision_point,current_point,previous_point,timeperiod,velocity,T)
+                return ("danger on your left")
+                #return ("danger on your left",collision_point,current_point,previous_point,timeperiod,velocity,T)
             if collision_point[1] == 2:
-                return ("danger on your front",collision_point,current_point,previous_point,timeperiod,velocity,T)
+                return ("danger on your front")
+                #return ("danger on your front",collision_point,current_point,previous_point,timeperiod,velocity,T)
             if collision_point[1] == 3:
-                return ("danger on your right",collision_point,current_point,previous_point,timeperiod,velocity,T)
+                return ("danger on your right")
+                #return ("danger on your right",collision_point,current_point,previous_point,timeperiod,velocity,T)
             if collision_point[1] == 4:
-                return ("danger on your right",collision_point,current_point,previous_point,timeperiod,velocity,T)
+                return ("danger on your right")
+                #return ("danger on your right",collision_point,current_point,previous_point,timeperiod,velocity,T)
         else:
             return "no danger"
 
