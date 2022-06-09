@@ -48,7 +48,7 @@ tracking_objects = {}
 track_id = 0
 
 # Polygon corner points coordinates
-pts = np.array([[x0, 1000], [x0, y0], [x1, y1], [x2, y1], [x3, y0], [x3, 1000]], np.int32)
+pts = np.array([[x0, 1080], [x0, y0], [x1, y1], [x2, y1], [x3, y0], [x3, 1080]], np.int32)
 
 while True:
     # break
