@@ -5,6 +5,10 @@ from collision_detection import detectCollision
 from object_detection import ObjectDetection
 import math
 
+
+# Initialize Object Detection
+obj_detection = ObjectDetection()
+
 # defining danger area from the inputs of user.
 print("\n  (x1,y1)   ____________  (x2,y1) \n           " +
     "/            \\ \n  (x0,y0) /              \\ (x2,y0) \n"+
@@ -16,15 +20,25 @@ print("\n  (x1,y1)   ____________  (x2,y1) \n           " +
 # x3 =int(input("Enter x3 cordinate"))
 # y0 =int(input("Enter y0 cordinate"))
 # y1 =int(input("Enter y1 cordinate"))
-# dangerArea = DangerArea(x0,x1,x2,x3,y0,y1)
-dangerArea = DangerArea(10,450,1500,1900,800,500)
+# dangerArea = DangerArea(10,450,1500,1900,800,500)
 
-# Initialize Object Detection
-obj_detection = ObjectDetection()
 
-cap = cv2.VideoCapture("Temp3.m4v")
+x0,x1,x2,x3,y0,y1 =10,450,800,1000,500,300          #danger area input related tu temp3
+cap = cv2.VideoCapture("Temp6.mp4")
+
+# x0,x1,x2,x3,y0,y1 =10,450,800,1000,500,300          #danger area input related tu temp3
+# cap = cv2.VideoCapture("Temp6.mp4")
+
+# x0,x1,x2,x3,y0,y1 =10,450,800,1000,500,300          #danger area input related tu temp3
+# cap = cv2.VideoCapture("Temp6.mp4")
+
+dangerArea = DangerArea(x0,x1,x2,x3,y0,y1)
+
+
+height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 fps = cap.get(cv2.CAP_PROP_FPS)
-print(fps)
+print(fps,width,height)
 # Initialize count
 count = 0
 # Store all the centre points of vehicles from the previous frame
@@ -34,9 +48,10 @@ tracking_objects = {}
 track_id = 0
 
 # Polygon corner points coordinates
-pts = np.array([[10, 1000], [10, 800], [450, 600], [1500, 600], [1900, 800], [1900, 1000]], np.int32)
+pts = np.array([[x0, 1000], [x0, y0], [x1, y1], [x2, y1], [x3, y0], [x3, 1000]], np.int32)
 
 while True:
+    # break
     ret, frame = cap.read()
     frame_copy = frame.copy()
     count += 1

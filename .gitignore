@@ -2,9 +2,8 @@ __pycache__/*
 dnn_model/*
 los_angeles.*
 Demo.*
-Temp.*
-Temp3.*
 .vscode/*
 TempHQ.*
 highway.*
 TempCrash.*
+Temp*
