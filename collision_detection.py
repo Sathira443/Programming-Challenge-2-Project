@@ -68,7 +68,8 @@ def detectCollision(dangerArea,curr_point,pre_point,fps):
         collision_point = FindIntersectionPoints(inter_f,current_point)                 #([Point(1,0)],0)
         velocity  = current_point.distance(previous_point)/timeperiod
         T=current_point.distance(collision_point[0][0])/velocity  #approximated Time for collision is T
-        
+        if Segment(current_point,collision_point[0][0]).contains(previous_point):
+            return "no danger"
         if T < 2:
             if collision_point[1] == 0:
                 return ("danger on your left")

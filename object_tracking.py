@@ -24,10 +24,10 @@ print("\n  (x1,y1)   ____________  (x2,y1) \n           " +
 x0,x1,x2,x3,y0,y1 =10,700,1300,1910,800,580          #danger area input related tu temp3
 cap = cv2.VideoCapture("Temp3.m4v")
 
-# x0,x1,x2,x3,y0,y1 =10,450,800,1000,500,300          #danger area input related tu temp3
-# cap = cv2.VideoCapture("Temp6.mp4")
+# x0, x1, x2, x3, y0, y1 = 10, 450, 1500, 1900, 850, 700       # danger area input related to temp5
+# cap = cv2.VideoCapture("Temp5.mp4")
 
-# x0,x1,x2,x3,y0,y1 =10,450,800,1000,500,300          #danger area input related tu temp3
+# x0, x1, x2, x3, y0, y1 = 10, 450, 1500, 1900, 800, 700       # danger area input related to temp6
 # cap = cv2.VideoCapture("Temp6.mp4")
 
 dangerArea = DangerArea(x0,x1,x2,x3,y0,y1)
@@ -185,7 +185,8 @@ while True:
 
     # This will show the frame in a new window
     cv2.imshow("Frame", frame)
-
+    if len(predicted_collisions) != 0:
+        print("predicted collision :",predicted_collisions)
     # Make a copy of the points
     previous_frame_object_list = current_frame_Object_list.copy()
 
